@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,10 +14,9 @@
         </header>
         <main>
             <div class="current-track">
-                <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/17/79/7f/17797f31-1f66-0208-6e84-c8a2a51d22d2/190295833893.jpg/1200x1200bb.jpg" alt="Album" class="album">
                 <div class="track-info">
                     <h2 id="track-title">Shape of You</h2>
-                    <p id="artist-name">Artist Name</p>
+                    <p id="artist-name">Ed Sheeran</p>
                 </div>
             </div>
             <div class="controls">
@@ -27,15 +27,37 @@
             <div class="playlist">
                 <h3>Playlist</h3>
                 <ul id="playlist">
-                    <li>Song 1</li>
-                    <li>Song 2</li>
-                    <li>Song 3</li>
-                    <li><button id="addSongButton">Add Song</button>
-                        <script src="+addSong.js"></script>
-                    </li>
+                    <!-- Songs will be dynamically added here -->
                 </ul>
+                <button id="addSongButton">Add Song</button>
             </div>
         </main>
     </div>
+
+    <!-- Add Song Form (Hidden by Default) -->
+    <div id="addSongForm" style="display: none;">
+        <h3>Add New Song</h3>
+        <form id="addSongFormElement">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br><br>
+
+            <label for="artist">Artist:</label>
+            <input type="text" id="artist" name="artist" required><br><br>
+
+            <label for="album">Album:</label>
+            <input type="text" id="album" name="album" required><br><br>
+
+            <label for="filename">Filename (MP3):</label>
+            <input type="text" id="filename" name="filename" required><br><br>
+
+            <button type="submit">Add Song</button>
+            <button type="button" id="cancelAddBtn">Cancel</button>
+        </form>
+    </div>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/addSong.js"></script>
 </body>
 </html>
+
+

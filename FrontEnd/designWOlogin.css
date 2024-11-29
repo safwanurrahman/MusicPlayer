@@ -115,7 +115,52 @@ header h1 {
     padding: 5.5px 11px;
 }
 
-.album {
-    width: 25%;
-    height: 25%;
+/* Add Song Form Styling */
+#addSongForm {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#addSongForm input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+#addSongForm button {
+    width: 100%;
+    padding: 10px;
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#addSongForm button:hover {
+    background-color: #3700b3;
+}
+
+#addSongButton {
+    background-color: rebeccapurple;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 5.5px 11px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+}
+
+#addSongButton:hover {
+    background-color: indigo; /* Change background color on hover */
+    transform: scale(1.1); /* Slightly enlarge the button */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add a shadow */
 }

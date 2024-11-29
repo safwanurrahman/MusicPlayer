@@ -7,10 +7,11 @@
   <link rel="stylesheet" href="login.css">
 </head>
 <body>
-  <div class="login-container">
+  <!-- Login Page Section -->
+  <div id="login-container" class="login-container">
     <div class="login-box">
       <h2>Login</h2>
-      <form action="/login" method="POST">
+      <form id="login-form">
         <!-- Username/Email Field -->
         <div class="input-group">
           <label for="username">Username or Email</label>
@@ -35,12 +36,60 @@
     </div>
   </div>
 
-  <script>
-document.querySelector("form").addEventListener("submit", function (e) {
-  e.preventDefault();
-  window.location.href = "music_player.html";
-});
+  <!-- Music Player UI Section (Initially Hidden) -->
+  <div id="music-player" class="music-player" style="display: none;">
+    <header>
+        <h1>My Music Player</h1>
+    </header>
+    <main>
+        <div class="current-track">
+            <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/17/79/7f/17797f31-1f66-0208-6e84-c8a2a51d22d2/190295833893.jpg/1200x1200bb.jpg" alt="Album" class="album">
+            <div class="track-info">
+                <h2 id="track-title">Shape of You</h2>
+                <p id="artist-name">Artist Name</p>
+            </div>
+        </div>
+        <div class="controls">
+            <button id="prev-btn">⏮</button>
+            <button id="play-btn">▶</button>
+            <button id="next-btn">⏭</button>
+        </div>
+        <div class="playlist">
+            <h3>Playlist</h3>
+            <ul id="playlist">
+                <li>Song 1</li>
+                <li>Song 2</li>
+                <li>Song 3</li>
+                <li><button id="addSongButton">Add Song</button></li>
+            </ul>
+        </div>
+    </main>
+  </div>
 
-</script>
+  <!-- JavaScript for Login and Music Player Toggle -->
+  <script>
+    // Selecting elements
+    const loginForm = document.getElementById('login-form');
+    const loginContainer = document.getElementById('login-container');
+    const musicPlayer = document.getElementById('music-player');
+
+    // Handle login form submission
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent page reload
+
+      // Get user inputs
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Simple login check (replace with actual backend check in real-world scenarios)
+      if (username === 'admin' && password === 'password') {
+        // Hide login page and show the music player
+        loginContainer.style.display = 'none';
+        musicPlayer.style.display = 'block';
+      } else {
+        alert('Incorrect username or password!');
+      }
+    });
+  </script>
 </body>
 </html>
