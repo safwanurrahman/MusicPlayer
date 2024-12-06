@@ -3,14 +3,6 @@ const router = express.Router();
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt'); // Optional: For password hashing
 
-// MySQL database connection
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'mysql69',
-  database: 'musicplayerdb',
-});
-
 // POST route to authorize login
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
@@ -23,7 +15,7 @@ router.post('/login', (req, res) => {
 
   // Query to check if the user exists
   const query = 'SELECT * FROM users WHERE username = ?';
-  connection.query(query, [username], async (err, results) => {
+  db.query(query, [username], async (err, results) => {
     if (err) {
       console.error('Error during login:', err.message);
       return res.status(500).json({ error: 'Internal server error' });

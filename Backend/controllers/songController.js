@@ -1,19 +1,12 @@
 const mysql = require('mysql2');
-
-    // MySQL database connection
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'mysql69', // Replace with your database password
-  database: 'musicplayerdb',
-});
+const db = require('../config/db');
 
 // Function to get all songs from the database
 const getSongs = (req, res) => {
   // SQL query to fetch all songs
   const query = 'SELECT * FROM songs';
   
-  connection.query(query, (err, results) => {
+  db.query(query, (err, results) => {
     if (err) {
       return res.status(500).json({
         success: false,

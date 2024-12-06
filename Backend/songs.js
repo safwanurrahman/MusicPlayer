@@ -1,14 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
-
+const db = require("./config/db");
 const router = express.Router();
-//const db = require('../db'); // Import database connection
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'mysql69',
-  database: 'musicplayerdb',
-});
 
 
 router.get('/', (req, res) => {

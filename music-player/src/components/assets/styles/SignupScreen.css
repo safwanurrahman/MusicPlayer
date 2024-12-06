@@ -1,0 +1,128 @@
+/* SignupScreen-specific styles
+#signup-screen {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    margin: auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #signup-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #signup-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  #signup-form input {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #signup-form button {
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #signup-form button:hover {
+    background-color: #218838;
+  }
+  
+  #signup-form .link {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  #signup-form .link:hover {
+    text-decoration: underline;
+  }
+   */
+
+   /* SignupScreen-specific styles */
+#signup-screen {
+  width: 100%;
+  max-width: 420px; /* Slightly wider for better readability */
+  padding: 25px;
+  margin: auto;
+  background: #fff;
+  border-radius: 12px; /* Slightly more rounded corners */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Softer shadow for better depth */
+  transition: all 0.3s ease-in-out; /* Smooth transition effect */
+}
+
+#signup-screen:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Slightly more pronounced shadow on hover */
+}
+
+#signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#signup-form h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+#signup-form input {
+  margin-bottom: 18px;
+  padding: 12px 15px;
+  font-size: 1.1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px; /* More rounded for a cleaner look */
+  transition: border-color 0.3s ease; /* Smooth transition for input focus */
+}
+
+#signup-form input:focus {
+  border-color: #28a745; /* Highlight border on focus */
+  outline: none;
+}
+
+#signup-form button {
+  padding: 12px;
+  font-size: 1.1rem;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+#signup-form button:hover {
+  background-color: #218838;
+}
+
+#signup-form .link {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  text-align: center;
+  color: #007bff;
+  cursor: pointer;
+  transition: color 0.3s ease; /* Smooth transition for link hover */
+}
+
+#signup-form .link:hover {
+  text-decoration: underline;
+  color: #0056b3; /* Darker blue for hover effect */
+}

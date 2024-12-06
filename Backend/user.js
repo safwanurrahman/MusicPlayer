@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('mysql2');
 const db = require("./config/db");
 
+// Route to check if the user route is working
 router.get('/', (req, res) => {
   res.send('User route works!');
 });
@@ -38,8 +38,8 @@ router.post('/login', (req, res) => {
   }
 
   // Query to check if the user exists in the database
-  const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
-  connection.query(query, [username, password], (err, results) => {
+  const query = 'SELECT * FROM user WHERE username = ? AND password = ?';
+  db.query(query, [username, password], (err, results) => {
     if (err) {
       console.error('Error during login:', err.message);
       return res.status(500).json({ error: 'Failed to login' });
@@ -56,15 +56,15 @@ router.post('/login', (req, res) => {
 });
 
 // GET route to get all users (optional)
-router.get('/allusers', (req, res) => {
-  const query = 'SELECT * FROM user';
-  db.query(query, (err, results) => {
-    if (err) {
-      console.error('Error fetching users:', err.message);
-      return res.status(500).json({ error: 'Failed to fetch users' });
-    }
-    res.json(results); // Return all users
-  });
-});
+// router.get('/allusers', (req, res) => {
+//   const query = 'SELECT * FROM user';
+//   db.query(query, (err, results) => {
+//     if (err) {
+//       console.error('Error fetching users:', err.message);
+//       return res.status(500).json({ error: 'Failed to fetch users' });
+//     }
+//     res.json(results); // Return all users
+//   });
+// });
 
 module.exports = router; // Export the router to be used in server.js

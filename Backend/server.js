@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
-const userRoutes = require('./user'); // Import the user routes
-const songsRouter = require('./songs'); // Importing songs routes
-const songControllerRouter = require('./songController');
-const db = require("./config/db")
+const userRoutes = require('./user'); 
+const songsRouter = require('./songs');
+const songControllerRouter = require('./controllers/songController');
+const db = require("./config/db");
 const app = express();
 const PORT = 5000;
 
@@ -15,12 +15,7 @@ app.use(bodyParser.json());
 // Use the user routes
 app.use('/api/users', userRoutes);  
 
-// app.use('/songs', songsRouter);
-
-// Basic Route
-// app.get('/', (req, res) => {
-//   res.send('Hello, Music Player!');
-// });
+app.use('/songs', songsRouter);
 
 // Start the server
 app.listen(PORT, () => {

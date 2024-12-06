@@ -1,13 +1,6 @@
 const bcrypt = require('bcrypt');
 const mysql = require('mysql2');
-
-// MySQL database connection
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'mysql69',
-  database: 'musicplayerdb',
-});
+const db = require('../config/db');
 
 // Login user
 const loginUser = async (req, res) => {
@@ -20,7 +13,7 @@ const loginUser = async (req, res) => {
 
   // Query to check if the user exists
   const query = 'SELECT * FROM users WHERE username = ?';
-  connection.query(query, [username], async (err, results) => {
+  db.query(query, [username], async (err, results) => {
     if (err) {
       return res.status(500).json({ error: 'Internal server error' });
     }
