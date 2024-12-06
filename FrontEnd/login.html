@@ -46,7 +46,7 @@
             <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/17/79/7f/17797f31-1f66-0208-6e84-c8a2a51d22d2/190295833893.jpg/1200x1200bb.jpg" alt="Album" class="album">
             <div class="track-info">
                 <h2 id="track-title">Shape of You</h2>
-                <p id="artist-name">Artist Name</p>
+                <p id="artist-name">Ed Sheeran</p>
             </div>
         </div>
         <div class="controls">
@@ -68,27 +68,56 @@
 
   <!-- JavaScript for Login and Music Player Toggle -->
   <script>
-    // Selecting elements
     const loginForm = document.getElementById('login-form');
     const loginContainer = document.getElementById('login-container');
     const musicPlayer = document.getElementById('music-player');
+    const playButton = document.getElementById('play-btn'); // Button for play/pause
 
     // Handle login form submission
-    loginForm.addEventListener('submit', function (e) {
-      e.preventDefault(); // Prevent page reload
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault(); // Prevent form from refreshing the page
 
       // Get user inputs
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
 
-      // Simple login check (replace with actual backend check in real-world scenarios)
-      if (username === 'admin' && password === 'password') {
-        // Hide login page and show the music player
-        loginContainer.style.display = 'none';
-        musicPlayer.style.display = 'block';
-      } else {
-        alert('Incorrect username or password!');
+      try {
+        // Send login request to backend
+        const response = await fetch('http://localhost:3000/api/users/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Store the JWT token in localStorage for subsequent requests
+          localStorage.setItem('authToken', data.token);
+
+          // Clear the form fields after successful login
+          loginForm.reset();
+
+          // Hide login page and show the music player
+          loginContainer.style.display = 'none';
+          musicPlayer.style.display = 'block';
+
+          // Show a success message
+          alert('Login successful!');
+        } else {
+          // Handle login failure
+          alert(data.message || 'Incorrect username or password!');
+        }
+      } catch (error) {
+        console.error('Error during login:', error);
+        alert('An error occurred while trying to log in.');
       }
+    });
+
+    // Function to toggle play/pause (for demo purposes)
+    playButton.addEventListener('click', () => {
+      const isPlaying = playButton.textContent === '▶';  // Check if it's currently playing
+      playButton.textContent = isPlaying ? '⏸' : '▶'; // Toggle the play/pause icon
     });
   </script>
 </body>
