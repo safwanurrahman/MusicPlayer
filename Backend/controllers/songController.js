@@ -1,64 +1,63 @@
-const mysql = require('mysql2');
-const db = require('../config/db');
+/// songController.js
+const db = require('../config/db');  // Assuming you have a db.js file to connect to MySQL
 
-// Function to get all songs from the database
-const getSongs = (req, res) => {
-  // SQL query to fetch all songs
-  const query = 'SELECT * FROM songs';
-  
-  db.query(query, (err, results) => {
-    if (err) {
-      return res.status(500).json({
-        success: false,
-        message: 'Error fetching songs from the database',
-      });
-    }
-    
-    // Send the fetched songs as a JSON response
-    res.status(200).json({
-      success: true,
-      songs: results,  // 'results' contains the songs from the database
-    });
-  });
-};
+// Add a new song to the playlist
+exports.addSong = (req, res) => {
+  const { title, artist, duration, releaseYear, songURL } = req.body;
 
-// Function to add a new song to the database
-const addSong = (req, res) => {
-  const { title, artist } = req.body;
-
-  // Validate input
   if (!title || !artist) {
-    return res.status(400).json({
-      success: false,
-      message: 'Title and artist are required',
-    });
+    return res.status(400).json({ error: 'Title and Artist are required' });
   }
 
-  // SQL query to insert a new song into the database
-  const query = 'INSERT INTO songs (title, artist) VALUES (?, ?)';
+  const songDuration = duration || null;
+  const songReleaseYear = releaseYear || null;
+  const songSongURL = songURL || null;
 
-  connection.query(query, [title, artist], (err, results) => {
+  const query = 'INSERT INTO Song (Title, Artist, Duration, ReleaseYear, SongURL) VALUES (?, ?, ?, ?, ?)';
+  db.query(query, [title, artist, songDuration, songReleaseYear, songSongURL], (err, results) => {
     if (err) {
-      return res.status(500).json({
-        success: false,
-        message: 'Error adding song to the database',
-      });
+      console.error('Error adding song:', err.message);
+      return res.status(500).json({ error: 'Failed to add song' });
     }
 
-    // Respond with success and the newly added song
     res.status(201).json({
-      success: true,
       message: 'Song added successfully',
-      song: {
-        id: results.insertId, // The id generated for the new song
-        title: title,
-        artist: artist,
-      },
+      songId: results.insertId,
+      song: { title, artist, duration: songDuration, releaseYear: songReleaseYear, songURL: songSongURL },
     });
   });
 };
 
-module.exports = {
-  addSong,
-  getSongs,
+// Delete a song from the playlist based on title or other unique identifiers
+exports.deleteSong = (req, res) => {
+  const { title, songID } = req.body;
+
+ // Delete a song based on songID
+exports.deleteSong = (req, res) => {
+  const { songID } = req.params;  // Get songID from the URL
+
+  // Validate input (Ensure songID is provided)
+  if (!songID) {
+    return res.status(400).json({ error: 'Song ID is required to delete' });
+  }
+
+  // Query to delete the song based on songID
+  const query = 'DELETE FROM Song WHERE SongID = ?';
+
+  db.query(query, [songID], (err, results) => {
+    if (err) {
+      console.error('Error deleting song:', err.message);
+      return res.status(500).json({ error: 'Failed to delete song' });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: 'Song not found' });
+    }
+
+    res.status(200).json({
+      message: 'Song deleted successfully',
+      songID: songID,  // Returning the ID of the deleted song
+    });
+  });
 };
+}
