@@ -1,93 +1,280 @@
-/* MusicPlayer-specific styles */
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: #121212;
+  color: white;
+  overflow: hidden;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full height of the viewport */
+  margin-right: 500;
+}
+
+/* Music Player Styling */
 #music-player {
-    width: 100%;
-    max-width: 600px;
-    margin: auto;
-    background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 90vh; /* Keep the reduced height */
+  width: 900px; /* Increased width */
+  max-width: 1000px; /* Increased max width for large screens */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align items to top */
+  align-items: center;
+  background: linear-gradient(135deg, #2b2d42, #8d99ae);
+  border-radius: 10px; /* Add rounded corners */
+  padding: 20px;
+   /* Move the entire layout 1cm to the left */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional shadow for the container */
+}
+
+/* Header Styling */
+header {
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1f1f1f;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+header h1 {
+  font-size: 1.5rem; /* Reduced font size */
+  font-weight: bold;
+  color: #ff8c42;
+  letter-spacing: 1px;
+}
+
+#logout-btn {
+  background-color: #ff5252;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+}
+
+#logout-btn:hover {
+  background-color: #ff1744;
+}
+
+/* Main Section */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  overflow:scroll;
+}
+/*Current Track*/
+.current-track {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 20px; /* Space below the container */
+  padding: 10px;
+  background-color: #2b2d42; /* Background for the display */
+  border-radius: 10px; /* Rounded corners */
+  width: 100%; /* Full width of the container */
+  justify-content: flex-end; /* Align the content to the right */
+}
+
+.album {
+  width: 300px; /* Increased album art size */
+  height: 300px;
+  border-radius: 40px;
+  margin-right: 300px;
+  margin-top: 14.9cm;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.track-info {
+  text-align: right;
+}
+
+.track-info h2 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ff8c42;
+}
+
+.track-info p {
+  font-size: 1rem;
+  color: #e5e5e5;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.controls button {
+  background-color: #ff5252;
+  color: white;
+  padding: 20px;
+  font-size: 24px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 0 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.controls button:hover {
+  background-color: #ff1744;
+  transform: scale(1.1);
+}
+
+/* Playlist */
+.playlist {
+  width: 100%; /* Increased width for larger screens */
+  max-width: 1100px; /* Increased max width for playlist */
+  margin-top: 30px;
+}
+
+#playlist {
+  list-style-type: none;
+  padding: 0;
+}
+
+#playlist li {
+  background-color: #333;
+  padding: 14px;
+  margin: 8px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#playlist li:hover {
+  background-color: #ff5252;
+  transform: translateX(5px);
+}
+
+#playlist li.active {
+  background-color: #ff1744;
+  color: white;
+  font-weight: bold;
+}
+
+/* Add Songs Button */
+#add-song-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px; /* Reduced margin-top to move it higher */
+  transition: background-color 0.3s ease;
+}
+
+#add-song-btn:hover {
+  background-color: #388e3c;
+}
+
+/* Add Songs Form */
+.add-song-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Adjusted gap for more space between inputs */
+  width: 80%;
+  max-width: 600px;
+  margin-top: 30px;
+}
+
+.add-song-form input {
+  padding: 14px; /* Increased padding for more space inside the fields */
+  border: 2px solid #444;
+  border-radius: 8px;
+  background-color: #2b2d42;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-song-form input::placeholder {
+  color: #aaa;
+}
+
+.add-song-form input:focus {
+  border-color: #ff8c42;
+  box-shadow: 0 0 5px rgba(255, 140, 66, 0.8);
+}
+
+.add-song-form input[type="number"] {
+  -moz-appearance: textfield; /* Removes spinner */
+  appearance: textfield;
+}
+
+/* Delete button (hidden by default) */
+.delete-btn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background-color: #ff1744; /* Red background for delete button */
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease; /* Fade effect */
+}
+
+/* Show delete button on hover */
+#playlist li:hover .delete-btn {
+  opacity: 1; /* Make the button visible on hover */
+}
+
+/* Styling for delete button hover */
+.delete-btn:hover {
+  background-color: #ff5252; /* Lighter red on hover */
+  transform: translateY(-50%) scale(1.2); /* Slightly enlarge the button on hover */
+}
+
+
+/* Responsive Design */
+@media (max-width: 568px) {
+  #music-player {
+    height: 90vh;
+    width: 95%;
   }
-  
-  header h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
+
   .current-track {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+    flex-direction: column;
   }
-  
-  .current-track .album {
-    width: 80px;
-    height: 80px;
-    margin-right: 20px;
-    border-radius: 8px;
+
+  .album {
+    margin-bottom: 15px;
   }
-  
-  .current-track .track-info h2 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #333;
-  }
-  
-  .current-track .track-info p {
-    margin: 5px 0 0;
-    font-size: 0.9rem;
-    color: #666;
-  }
-  
+
   .controls {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
+    flex-direction: column;
   }
-  
-  .controls button {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .controls button:hover {
-    background-color: #0056b3;
-  }
-  
-  .playlist {
-    margin-top: 20px;
-  }
-  
-  .playlist h3 {
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  #playlist {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
+
   #playlist li {
     padding: 10px;
-    font-size: 1rem;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
   }
-  
-  #playlist li.active {
-    background-color: #007bff;
-    color: #fff;
+
+  .add-song-form {
+    width: 90%; /* Adjust input width for smaller screens */
   }
-  
-  #playlist li:hover {
-    background-color: #f0f0f0;
-  }
-  
+}

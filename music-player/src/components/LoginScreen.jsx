@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from '../services/api';
-import './assets/styles/LoginScreen.css';  // Ensure the correct path to your CSS file
+import axios from 'axios'; // Using axios for API calls
+import './assets/styles/LoginScreen.css'; // Ensure the correct path to your CSS file
 
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
@@ -13,28 +13,30 @@ const LoginScreen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (username && password) {
-      try {
-        const data = await loginUser(username, password); // Get login response
-        localStorage.setItem('authToken', data.token); // Save token to localStorage
-        navigate("/music-player"); // Navigate to music player page
-      } catch (err) {
-        console.error("Login failed", err);
-        alert("Login failed. Please try again.");
-      }
-    }
-  };
+      setLoading(true); // Show loading indicator
+      setError(""); // Reset error message
 
-    setLoading(true); // Show loading indicator
-    try {
-      const data = await loginUser(username, password);
-      // Check if the response contains a valid username or message
-      const usernameToDisplay = data.username || data.message || "User"; // Default to "User" if no username is found
-      alert(`Welcome, ${usernameToDisplay}!`);
-      navigate("/music-player");
-    } catch (err) {
-      setError(err.message || "An error occurred during login. Please try again.");
-    } finally {
-      setLoading(false); // Hide loading indicator once done
+      try {
+        // API call to login
+        const response = await axios.post('http://localhost:5000/api/users/login', {
+          username,
+          password,
+        });
+        
+        // Extract data from response
+        const { token, message } = response.data;
+        localStorage.setItem('authToken', token); // Save token to localStorage
+        alert(message || `Welcome, ${username}!`); // Greet the user
+        navigate("/music-player"); // Navigate to the music player page
+      } catch (err) {
+        console.error("Login failed", err.response?.data || err.message);
+        // Set error based on backend response
+        setError(err.response?.data?.error || "Login failed. Please try again.");
+      } finally {
+        setLoading(false); // Hide loading indicator once done
+      }
+    } else {
+      setError("Please fill in both fields.");
     }
   };
 
