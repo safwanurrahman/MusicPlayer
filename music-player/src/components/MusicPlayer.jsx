@@ -82,38 +82,34 @@ function MusicPlayer() {
     setIsPlaying(true); // Automatically start playing the selected track
   };
   
-  // Handle song deletion
-  const deleteSong = async (index) => {
-    const songToDelete = playlist[index]; // Get the song to delete based on index
+// Handle song deletion
+const deleteSong = async (index) => {
+  const songToDelete = playlist[index]; // Get the song to delete based on index
 
-    try {
-      // Send a DELETE request to the backend with the song details
-      const response = await fetch('http://localhost:5000/api/songs/delete/:' + songToDelete.songID, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ songID: songToDelete.songID }), // Send song details
-      });
+  try {
+    // Send a DELETE request to the backend with the songID in the URL
+    const response = await fetch(`http://localhost:5000/api/songs/delete/${songToDelete.songID}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // No need to include songID in the body, just pass the URL parameter
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (response.ok) {
-        // If the song is successfully deleted from the database, update the playlist
-        const newPlaylist = playlist.filter((_, i) => i !== index); // Remove the song by index
-        setPlaylist(newPlaylist); // Update the playlist state
-
-        if (currentTrack === index) {
-          setIsPlaying(false); // Stop playback if the deleted song was the current one
-          setCurrentTrack(0); // Set the first song as the current track
-        }
-      } else {
-        console.error('Failed to delete song:', data.error);
-      }
-    } catch (err) {
-      console.error('Error deleting song:', err);
+    if (response.ok) {
+      // If the song is successfully deleted from the database, update the playlist
+      const newPlaylist = playlist.filter((_, i) => i !== index); // Remove the song by index
+      setPlaylist(newPlaylist); // Update the playlist state
+    } else {
+      console.error('Failed to delete song:', data.error);
     }
-  };
+  } catch (err) {
+    console.error('Error deleting song:', err);
+  }
+};
+
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
